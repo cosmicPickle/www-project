@@ -1,4 +1,4 @@
-<?php if(!$model) $model = new Student();?>
+<?php if(!$model) $model = new Course();?>
 <div class="col-md-12">
     <h1 class="page-header">Курс <?php echo $model->getName(); ?></h1>
     

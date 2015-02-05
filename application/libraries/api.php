@@ -11,6 +11,11 @@ class Api {
         return $ci;
     }
     
+    public function getRpp()
+    {
+        return $this->rpp;
+    }
+    
     public function setModel($model)
     {
         $this->model = $model;
@@ -61,8 +66,6 @@ class Api {
             $obj->addOrder($order[0],$order[1]);
         
         $offset = ($page - 1) * $this->rpp;
-        if($page != 1)
-            $offset ++;
         
         $obj->addLimit($this->rpp, $offset);
         return $obj->loadCollection();

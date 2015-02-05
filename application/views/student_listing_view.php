@@ -5,17 +5,37 @@
     <form method="get" action="">
         <table class="table table-striped">
             <tr>
-                <th>Фн</th>
-                <th>Име</th>
-                <th>Специалност</th>
-                <th>Точки</th>
+                <th>
+                    <a href="<?php echo gen_query_string(gen_ord_array('num')); ?>">
+                        <span class="glyphicon <?php echo icon_order('num') ?>"></span>
+                        Фн
+                    </a>
+                </th>
+                <th>
+                    <a href="<?php echo gen_query_string(gen_ord_array('name')); ?>">
+                        <span class="glyphicon <?php echo icon_order('name') ?>"></span>
+                        Име
+                    </a>
+                </th>
+                <th>
+                    <a href="<?php echo gen_query_string(gen_ord_array('specialty')); ?>">
+                        <span class="glyphicon <?php echo icon_order('specialty') ?>"></span>
+                        Специалност
+                    </a>
+                </th>
+                <th>
+                    <a href="<?php echo gen_query_string(gen_ord_array('points')); ?>">
+                        <span class="glyphicon <?php echo icon_order('points') ?>"></span>
+                        Точки
+                    </a>
+                </th>
                 <th><a class="btn btn-primary" href="<?php echo base_url() ?>index.php/student/edit">Нов</a></th>
             </tr>
             <tr>
                 <td><input type="text" placeholder="Търси в Фн..." name="filter[num]" class="form-control"></td>
                 <td><input type="text" placeholder="Търси в Име..." name="filter[name]" class="form-control"></td>
-                <td><input type="text" placeholder="Търси в Специалност..." name="filter[points]" class="form-control"></td>
-                <td><input type="text" placeholder="Търси в Точки..." name="filter[specialty]" class="form-control"></td>
+                <td><input type="text" placeholder="Търси в Специалност..." name="filter[specialty]" class="form-control"></td>
+                <td><input type="text" placeholder="Търси в Точки..." name="filter[points]" class="form-control"></td>
                 <td><input type="submit" value="Филтрирай" class="btn btn-default"></td>
             </tr>
             <?php foreach($collection as $student): ?>
@@ -56,4 +76,15 @@
             <?php endforeach;?>
         </table>      
     </form>
+    <?php
+        $rpp = $this->api->getRpp();
+        $pageMin = 1;
+        $curPage = $this->input->get('p') ? $this->input->get('p') : 1;
+    ?>
+    <div class="btn-group" role="group" aria-label="...">
+        <a class="btn btn-default <?php if( $curPage == $pageMin ) echo ' disabled' ?>" 
+           href="<?php echo gen_query_string(array('p' => $curPage - 1))?>">Предишна Страница</a>
+        <a class="btn btn-default <?php if( count($collection) < $rpp ) echo ' disabled' ?>" 
+           href="<?php echo gen_query_string(array('p' => $curPage + 1))?>">Следваща Страница</a>
+    </div>
 </div>

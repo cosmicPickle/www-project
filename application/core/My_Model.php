@@ -34,6 +34,10 @@ class My_Model extends CI_Model {
         {
             $property = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $matches[1]));
             
+            if($property == 'data' && is_array($args[0]))
+                foreach($args[0] as $key => $val)
+                    $this->data->{$key} = $val;
+            
             if(isset($args[0]))
                 $this->data->{$property} = $args[0];
             

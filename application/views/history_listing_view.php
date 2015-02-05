@@ -17,7 +17,12 @@ if(isset($filter['student_id']))
             <tr>
                 <th>Студент</th>
                 <th>Задача</th>
-                <th>Дата</th>
+                <th>
+                    <a href="<?php echo gen_query_string(gen_ord_array('date')); ?>">
+                        <span class="glyphicon <?php echo icon_order('date') ?>"></span>
+                        Дата
+                    </a>
+                </th>
                 <th><a class="btn btn-primary" href="<?php echo base_url() ?>index.php/history/edit/0/<?php echo $studentId; ?>">Нов</a></th>
             </tr>
             <tr>
@@ -81,4 +86,15 @@ if(isset($filter['student_id']))
             <?php endforeach;?>
         </table>      
     </form>
+    <?php
+        $rpp = $this->api->getRpp();
+        $pageMin = 1;
+        $curPage = $this->input->get('p') ? $this->input->get('p') : 1;
+    ?>
+    <div class="btn-group" role="group" aria-label="...">
+        <a class="btn btn-default <?php if( $curPage == $pageMin ) echo ' disabled' ?>" 
+           href="<?php echo gen_query_string(array('p' => $curPage - 1))?>">Предишна Страница</a>
+        <a class="btn btn-default <?php if( count($collection) < $rpp ) echo ' disabled' ?>" 
+           href="<?php echo gen_query_string(array('p' => $curPage + 1))?>">Следваща Страница</a>
+    </div>
 </div>
