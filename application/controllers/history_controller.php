@@ -2,6 +2,7 @@
 
 class History_Controller extends My_Controller {
     
+    protected $preciseFilters = array('student_id');
     public function listing($studentId = NULL) {
         
         if($studentId)

@@ -5,6 +5,7 @@ class My_Controller extends CI_Controller {
     protected $class;
     protected $method = "post";
     protected $view_data = array();
+    protected $preciseFilters = array();
     
     public function __construct() {
         parent::__construct();
@@ -22,7 +23,10 @@ class My_Controller extends CI_Controller {
         $filters = array();
         if($this->input->get('filter'))
             foreach($this->input->get('filter') as $key => $fr)
-                $filters[$key."%"] = $fr;
+                if(!in_array($key, $this->preciseFilters))
+                    $filters[$key."%"] = $fr;
+                else
+                    $filters[$key] = $fr;
         
         $order = array();
         if($this->input->get('ord'))
